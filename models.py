@@ -1,8 +1,8 @@
 """Models for Blogly."""
 
-from enum import unique
-from http import server
-from turtle import title
+# from enum import unique
+# from http import server
+# from turtle import title
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 
@@ -100,16 +100,16 @@ class Tag(db.Model):
 
     id = db.Column(
         db.Integer,
-        primary_key = True,
-        autoincrement = True
+        primary_key = True
     )
 
     name = db.Column(
         db.Text,
-        nullable = False
+        nullable = False,
+        unique = True
     )
 
-    posts = db.relationship('Post', secondary = 'posts_tags', backref = 'tags')
+    posts = db.relationship('Post', secondary = 'posts_tags', cascade = 'all, delete', backref = 'tags')
 
 
 

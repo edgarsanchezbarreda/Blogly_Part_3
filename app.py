@@ -159,7 +159,7 @@ def add_tag_page():
     return render_template('add_tag.html')
 
     
-@app.route('/tags/new',methods=["POST"])
+@app.route("/tags/new", methods=["POST"])
 def add_tag():
     # name = request.form['name']
     
@@ -167,7 +167,7 @@ def add_tag():
 
     db.session.add(new_tag)
     db.session.commit()
-    return redirect('/tags')
+    return redirect("/tags")
 
 
 @app.route('/tags/<int:tag_id>/edit')

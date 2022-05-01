@@ -19,9 +19,9 @@ post_6 = Post(title = 'New role!', content = 'I am filming ANOTHER movie with Ke
 
 
 
-tag_1 = Tag(id = 1, name = 'Fun')
-tag_2 = Tag(id = 2, name = 'Even More')
-tag_3 = Tag(id = 3, name = 'Bloop')
+tag_1 = Tag(name = 'Fun')
+tag_2 = Tag(name = 'Even More')
+tag_3 = Tag(name = 'Bloop')
 
 
 
