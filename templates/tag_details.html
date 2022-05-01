@@ -4,6 +4,6 @@
 <h1>{{tag.name}}</h1>
 <form method="post">
     <button formaction="/tags/{{tag.id}}/edit" formmethod="get">Edit</button>
-    <button formaction="/tags" formmethod="post">Delete</button>
+    <button formaction="/tags/{{tag.id}}/delete" formmethod="post">Delete</button>
 </form>
 {% endblock %}
