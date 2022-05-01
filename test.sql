@@ -1,0 +1,5 @@
+-- INSERT INTO "user" (first_name, last_name, image_url)
+-- VALUES 
+-- ('Michael', 'Jordan', 'https://hoopshype.com/wp-content/uploads/sites/92/2021/11/i_29_5a_95_michael-jordan.png?w=1000&h=600&crop=1'),
+-- ('Steve', 'Jobs', 'https://cdn.vox-cdn.com/thumbor/OB4Z36d98m0qdglbCcVX_VnxpLQ=/0x86:706x557/920x613/filters:focal(0x86:706x557):format(webp)/cdn.vox-cdn.com/assets/738480/stevejobs.png'),
+-- ('Bruce', 'Lee', 'https://ichef.bbci.co.uk/news/976/mcs/media/images/61404000/jpg/_61404585_bruce-lee-in-enter-the-drag.jpg');
