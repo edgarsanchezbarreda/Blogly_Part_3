@@ -2,8 +2,16 @@
 {% block title %}Tag Details{% endblock %}
 {% block content %}
 <h1>{{tag.name}}</h1>
+<ul>
+    {% for post in tag.posts %}
+    <a href="/posts/{{post.id}}">
+        <li>{{post.title}}</li>
+    </a>
+    {% endfor %}
+</ul>
 <form method="post">
     <button formaction="/tags/{{tag.id}}/edit" formmethod="get">Edit</button>
     <button formaction="/tags/{{tag.id}}/delete" formmethod="post">Delete</button>
 </form>
+<a href="/tags">Go Back</a>
 {% endblock %}

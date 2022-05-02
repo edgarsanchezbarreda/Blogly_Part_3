@@ -75,6 +75,10 @@ class Post(db.Model):
         nullable = False
     )
 
+    @property
+    def friendly_date(self):
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
+
     def __repr__(self):
         return f"<Post {self.title} {self.content} {self.created_at} {self.user_id}>"
 

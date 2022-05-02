@@ -84,19 +84,23 @@ def delete_user(user_id):
 @app.route('/users/<int:user_id>/posts/new_post')
 def add_post_page(user_id):
     user = User.query.get_or_404(user_id)
-    return render_template('new_post.html', user = user)
+    tags = Tag.query.all()
+    return render_template('new_post.html', user = user, tags = tags)
 
 @app.route('/users/<int:user_id>/posts/new_post', methods = ['POST'])
 def add_post(user_id):
-    # user = User.query.get_or_404(user_id)
-    title = request.form['title']
-    content = request.form['content']
-    user_id = user_id
+    user = User.query.get_or_404(user_id)
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
+    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
 
-    new_post = Post(title = title, content = content, user_id = user_id)
+    new_post = Post(title=request.form['title'],
+                    content=request.form['content'],
+                    user=user,
+                    tags=tags)
+
     db.session.add(new_post)
     db.session.commit()
-    
+
     return redirect(f"/users/{user_id}")
 
 
@@ -112,28 +116,31 @@ def show_post(post_id):
 def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
     user = User.query.get_or_404(post.user_id)
+    tags = Tag.query.all()
     
-    return render_template('edit_post.html', post = post, user = user)
+    return render_template('edit_post.html', post = post, user = user, tags = tags)
 
 
 @app.route('/posts/<int:post_id>/edit', methods = ['POST'])
 def submit_post_edit(post_id):
     post = Post.query.get_or_404(post_id)
-    user = User.query.get_or_404(post.user_id)
-    
     post.title = request.form['title']
     post.content = request.form['content']
-    
+
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
+    post.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+
     db.session.add(post)
     db.session.commit()
+    flash(f"Post '{post.title}' edited.")
 
-    return redirect(f"/users/{user.id}")
+    return redirect(f"/users/{post.user_id}")
 
 
 @app.route('/posts/<int:post_id>/delete', methods = ['POST'])
 def delete_post(post_id):
-    post = Post.query(post_id)
-    user = User.query(post.user_id)
+    post = Post.query.get(post_id)
+    user = User.query.get(post.user_id)
 
     db.session.delete(post)
     db.session.commit()
@@ -151,7 +158,8 @@ def tag_list():
 @app.route('/tags/<int:tag_id>')
 def tag_details(tag_id):
     tag = Tag.query.get(tag_id)
-    return render_template('tag_details.html', tag = tag)
+    posts = Post.query.all()
+    return render_template('tag_details.html', tag = tag, posts = posts)
 
 
 @app.route('/tags/new')
